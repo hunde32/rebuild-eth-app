@@ -13,20 +13,18 @@ import donationRoutes from "./routes/donationRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// --- Middleware ---
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-// --- 4. Auth Route ---
-// This regex matches /api/auth/ and everything after it.
-// It is the only way to avoid the PathError in your version of Node/Express.
 app.use("/api/auth", toNodeHandler(auth));
 
 app.use("/api/donations", donationRoutes);
 app.use("/api/recipients", recipientRoutes);
 
 app.get("/health", (req, res) => {
-  res.status(200).json({ status: "success" });
+  res.status(200).json({ status: "Rebuildeth is up and running!" });
 });
 
 const mongoUri =

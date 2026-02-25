@@ -5,7 +5,7 @@ export interface IRecipient extends Document {
   encryptedIdFrontUrl: string;
   encryptedIdBackUrl: string;
   encryptedSelfieUrl: string;
-  registeredBy: mongoose.Types.ObjectId; // Employee ID
+  registeredBy: mongoose.Types.ObjectId;
   status: "pending" | "verified" | "rejected";
 }
 

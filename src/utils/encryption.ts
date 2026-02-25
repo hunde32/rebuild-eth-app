@@ -15,7 +15,6 @@ export const encryptData = (text: string): string => {
   encrypted += cipher.final("hex");
   const authTag = cipher.getAuthTag().toString("hex");
 
-  // Format: iv:authTag:encryptedText
   return `${iv.toString("hex")}:${authTag}:${encrypted}`;
 };
 

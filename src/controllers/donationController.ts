@@ -4,16 +4,13 @@ import crypto from "crypto";
 import Donation from "../models/Donation";
 import { recordDonationOnChain } from "../services/blockchain";
 
-// Initialize Chapa Payment
 export const initializePayment = async (req: Request, res: Response) => {
   const { amount, email, firstName, lastName } = req.body;
   const txRef = `REBUILD-${Date.now()}`;
 
   try {
-    // 1. Save Pending Donation
     await Donation.create({ txRef, amount, status: "pending" });
 
-    // 2. Call Chapa
     const chapaRes = await axios.post(
       "https://api.chapa.co/v1/transaction/initialize",
       {
@@ -37,7 +34,6 @@ export const initializePayment = async (req: Request, res: Response) => {
   }
 };
 
-// Handle Chapa Webhook
 export const chapaWebhook = async (req: Request, res: Response) => {
   const hash = crypto
     .createHmac("sha256", process.env.CHAPA_WEBHOOK_SECRET || "")
@@ -52,24 +48,20 @@ export const chapaWebhook = async (req: Request, res: Response) => {
 
   if (status === "success") {
     try {
-      // 1. Post to Blockchain
       const txHash = await recordDonationOnChain(tx_ref, amount);
 
-      // 2. Update DB with success and Hash
       await Donation.findOneAndUpdate(
         { txRef: tx_ref },
         { status: "success", blockchainTxHash: txHash },
       );
     } catch (error) {
       console.error("Failed to post to blockchain", error);
-      // Implement a retry queue / DLQ in production here
     }
   }
 
   res.status(200).send("Webhook received");
 };
 
-// Public Verification Endpoint
 export const verifyDonation = async (req: Request, res: Response) => {
   const { txHash } = req.params;
   const donation = await Donation.findOne({ blockchainTxHash: txHash });

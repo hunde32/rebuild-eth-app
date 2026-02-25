@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { registerRecipient } from "../controllers/recipientController.js";
-import { protect } from "../middleware/authMiddleware";
+import { requireEmployee } from "../middleware/authMiddleware.js";
 
 const router = Router();
-router.post("/register", protect, registerRecipient);
-router.post("/register", registerRecipient);
+
+router.post("/register", requireEmployee, registerRecipient);
 
 export default router;

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { auth } from "../lib/auth.js"; // Ensure the .js extension is here too
+import { auth } from "../lib/auth.js";
 import { fromNodeHeaders } from "better-auth/node";
 
 export const protect = async (
@@ -7,7 +7,6 @@ export const protect = async (
   res: Response,
   next: NextFunction,
 ) => {
-  // 1. Get the session from BetterAuth using the request headers
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(req.headers),
   });
@@ -16,9 +15,28 @@ export const protect = async (
     return res.status(401).json({ message: "Unauthorized. Please log in." });
   }
 
-  // 2. Attach the user to the request object
-  // We cast to 'any' here or extend the Express Request type
   (req as any).user = session.user;
+  (req as any).session = session.session;
+  next();
+};
 
+export const requireEmployee = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(req.headers),
+  });
+
+  if (!session) {
+    return res.status(401).json({ message: "Unauthorized. Please log in." });
+  }
+  const userEmail = session.user.email;
+  if (!userEmail.endsWith("@rebuildeth.com")) {
+    return res.status(403).json({ message: "Forbidden: Employees only." });
+  }
+
+  (req as any).user = session.user;
   next();
 };

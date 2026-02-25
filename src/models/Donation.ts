@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IDonation extends Document {
-  txRef: string; // Chapa transaction reference
+  txRef: string;
   amount: number;
   currency: string;
   blockchainTxHash?: string;
@@ -13,7 +13,7 @@ const DonationSchema = new Schema(
     txRef: { type: String, required: true, unique: true },
     amount: { type: Number, required: true },
     currency: { type: String, default: "ETB" },
-    blockchainTxHash: { type: String }, // Populated after Ethers.js records it
+    blockchainTxHash: { type: String },
     status: {
       type: String,
       enum: ["pending", "success", "failed"],

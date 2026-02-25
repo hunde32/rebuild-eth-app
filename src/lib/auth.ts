@@ -3,7 +3,6 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
 import * as dotenv from "dotenv";
 
-// This ensures variables are loaded the MOMENT this file is imported
 dotenv.config();
 
 const MONGO_URI = process.env.MONGO_URI;
@@ -17,8 +16,11 @@ const db = client.db();
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:3000/api/auth",
   emailAndPassword: {
     enabled: true,
+  },
+  logger: {
+    level: "debug",
   },
 });
