@@ -27,7 +27,7 @@ The project follows a modular controller-service pattern for high maintainabilit
 - **Runtime:** Bun (Current Node.js logic)
 - **Framework:** BetterAuth (Identity & Security)
 - **Database:** MongoDB
-- **Payment Gateway:** Chapa & Telebirr
+- **Payment Gateway:** Chapa
 - **Blockchain:** Ethers.js (Creditcoin/EVM)
 - **Storage:** Cloudinary (Beneficiary KYC data)
 
