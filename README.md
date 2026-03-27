@@ -44,7 +44,7 @@ In line with industry standards for financial reliability, the high-volume trans
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/hunde32/rebuild-eth-app.git](https://github.com/hunde32/rebuild-eth-app.git)
+    git clone https://github.com/hunde32/rebuild-eth-app.git
     cd rebuild-eth-app
     ```
 
