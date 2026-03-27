@@ -15,7 +15,7 @@ Traditional aid often lacks a "paper trail." RebuildEthiopia automates the conve
 The project follows a modular controller-service pattern for high maintainability:
 
 - **`src/controllers/`**: Handles incoming HTTP requests and sends responses.
-- **`src/services/`**: The core business logic. Contains integrations for **Chapa**, **Telebirr**, and **Ethers.js** blockchain calls.
+- **`src/services/`**: The core business logic. Contains integrations for **Chapa** and **Ethers.js** blockchain calls.
 - **`src/routes/`**: Defines the API endpoints for donations, authentication, and user management.
 - **`src/models/`**: MongoDB schemas for structured transaction logging.
 - **`src/middleware/`**: Logic for JWT authentication and request validation.
