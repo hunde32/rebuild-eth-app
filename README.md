@@ -68,4 +68,4 @@ In line with industry standards for financial reliability, the high-volume trans
 
 ---
 
-**Award Note:** This project logic stems from the **BUIDL CTC Hackathon** and draws from my 2nd Place award-winning project **EasyVend** at the Foka STEAM Fair.
+**Note:** This project logic stems from the **BUIDL CTC Hackathon**.
